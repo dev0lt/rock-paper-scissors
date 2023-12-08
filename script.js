@@ -19,13 +19,23 @@ let computerChoice;
 
 ////////// GAME //////////////////////////
 
-rock.addEventListener("click", () => game("rock"));
-paper.addEventListener("click", () => game("paper"));
-scissors.addEventListener("click", () => game("scissors"));
+rock.addEventListener("click", (e) => game(e.target.textContent.toLowerCase()));
+paper.addEventListener("click", (e) =>
+  game(e.target.textContent.toLowerCase())
+);
+scissors.addEventListener("click", (e) =>
+  game(e.target.textContent.toLowerCase())
+);
 
 function getComputerChoice() {
   computerChoice = arr.at(Math.floor(Math.random() * 3));
   return computerChoice;
+}
+
+function gameRestart() {
+  playerScore = playerScoreHTML.textContent = 0;
+  computerScore = cpuScoreHTML.textContent = 0;
+  log.textContent = "";
 }
 
 function game(player) {
@@ -41,6 +51,11 @@ function game(player) {
     playerScoreHTML.textContent = playerScore;
     log.textContent = `Player: ${player} CPU: ${computer} = you have won this round!`;
 
+    if (playerScore === 5) {
+      gameRestart();
+      log.textContent = `You have won!`;
+    }
+
     getComputerChoice();
 
     /////// computer wins the round //////
@@ -53,6 +68,11 @@ function game(player) {
     cpuScoreHTML.textContent = computerScore;
     log.textContent = `Player: ${player}, CPU: ${computer} = cpu has won this round!`;
 
+    if (computerScore === 5) {
+      gameRestart();
+      log.textContent = `You have lost!`;
+    }
+
     getComputerChoice();
 
     ////////////// draw /////////////////
@@ -64,8 +84,5 @@ function game(player) {
   }
 }
 
-reset.addEventListener("click", function () {
-  playerScoreHTML.textContent = 0;
-  cpuScoreHTML.textContent = 0;
-  log.textContent = "";
-});
+/////////// reset the game /////////////////////
+reset.addEventListener("click", gameRestart);
