@@ -35,7 +35,9 @@ function getComputerChoice() {
 function gameRestart() {
   playerScore = playerScoreHTML.textContent = 0;
   computerScore = cpuScoreHTML.textContent = 0;
-  log.textContent = "";
+  log.textContent = "placeholder";
+  rock.disabled = paper.disabled = scissors.disabled = false;
+  log.classList.add("hidden");
 }
 
 function game(player) {
@@ -50,10 +52,13 @@ function game(player) {
     playerScore++;
     playerScoreHTML.textContent = playerScore;
     log.textContent = `Player: ${player} CPU: ${computer} = you have won this round!`;
+    log.classList.remove("hidden");
 
     if (playerScore === 5) {
-      gameRestart();
       log.textContent = `You have won!`;
+      rock.disabled = paper.disabled = scissors.disabled = true;
+      log.classList.remove("hidden");
+      return;
     }
 
     getComputerChoice();
@@ -67,10 +72,13 @@ function game(player) {
     computerScore++;
     cpuScoreHTML.textContent = computerScore;
     log.textContent = `Player: ${player}, CPU: ${computer} = cpu has won this round!`;
+    log.classList.remove("hidden");
 
     if (computerScore === 5) {
-      gameRestart();
       log.textContent = `You have lost!`;
+      rock.disabled = paper.disabled = scissors.disabled = true;
+      log.classList.remove("hidden");
+      return;
     }
 
     getComputerChoice();
@@ -78,6 +86,7 @@ function game(player) {
     ////////////// draw /////////////////
   } else {
     log.textContent = `Player: ${player}, CPU: ${computer} = it's a draw!`;
+    log.classList.remove("hidden");
 
     getComputerChoice();
     return;
