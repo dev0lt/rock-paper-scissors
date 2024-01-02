@@ -57,11 +57,8 @@ function game(player) {
     if (playerScore === 5) {
       log.textContent = `You have won!`;
       rock.disabled = paper.disabled = scissors.disabled = true;
-      log.classList.remove("hidden");
       return;
     }
-
-    getComputerChoice();
 
     /////// computer wins the round //////
   } else if (
@@ -77,18 +74,14 @@ function game(player) {
     if (computerScore === 5) {
       log.textContent = `You have lost!`;
       rock.disabled = paper.disabled = scissors.disabled = true;
-      log.classList.remove("hidden");
       return;
     }
-
-    getComputerChoice();
 
     ////////////// draw /////////////////
   } else {
     log.textContent = `Player: ${player}, CPU: ${computer} = it's a draw!`;
     log.classList.remove("hidden");
 
-    getComputerChoice();
     return;
   }
 }
